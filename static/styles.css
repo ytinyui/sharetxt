@@ -1,0 +1,45 @@
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+}
+
+.container {
+  text-align: center;
+}
+
+.input-container {
+  padding: 0 5px 0 5px;
+}
+
+#input {
+  resize: none;
+  width: 90%;
+  min-height: 400px;
+  font-family: inherit;
+  padding: 6px 12px;
+}
+
+.message {
+  margin-bottom: 10px;
+  padding: 0 20px 0 20px;
+}
+
+.status-container {
+  width: 95%;
+  margin: auto;
+}
+
+.status {
+  padding-right: 5px;
+  text-align: right;
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShareTXT</title>
+    <meta
+      name="description"
+      content="Share text between browsers in real time."
+    />
+    <link rel="stylesheet" href="static/styles.css" type="text/css" />
+  </head>
+  <body>
+    <div>
+      <div class="container">
+        <h1>ShareTXT</h1>
+        <div class="message">
+          Open this URL on another browser window to share text between
+          browsers.
+        </div>
+        <div class="message">
+          <span id="client-count"></span> connected in <i id="room-name"></i>
+        </div>
+        <div class="input-container">
+          <textarea id="input" placeholder="Input text to share"></textarea>
+        </div>
+        <div class="status-container">
+          <div class="status">
+            <span id="word-count"></span> | <span id="status"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const ws_message_endpoint = "{{ ws_message }}";
+      const ws_heartbeat_endpoint = "{{ ws_heartbeat }}";
+    </script>
+    <script src="static/script.js"></script>
+  </body>
+</html>
