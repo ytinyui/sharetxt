@@ -35,9 +35,6 @@ function updateWordCountMessage() {
          ${wcResult.chars} char${wcResult.chars > 1 ? "s" : ""}`;
 }
 
-ws_message.onopen = () => {
-  updateClientMessage(input.value);
-};
 ws_message.onmessage = (event) => {
   input.value = event.data;
   updateWordCountMessage(input.value);
@@ -66,3 +63,5 @@ ws_heartbeat.onclose = () => {
 input.addEventListener("input", () => {
   ws_message.send(input.value);
 });
+
+updateWordCountMessage(input.value);
