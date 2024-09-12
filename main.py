@@ -25,7 +25,7 @@ class WebSocketBroadcaster:
     async def broadcast(self, path: str, message: str):
         with self.lock:
             conn = self.connections[path]
-            conn.text = message
+            conn.text = message if message else ""
             for id_ in conn.websockets:
                 websocket = conn.websockets[id_]
                 if websocket.client_state == WebSocketState.CONNECTED:
@@ -42,7 +42,10 @@ class WebSocketBroadcaster:
 
     async def unregister(self, path: str, websocket: WebSocket):
         with self.lock:
-            del self.connections[path].websockets[id(websocket)]
+            conn = self.connections[path]
+            del conn.websockets[id(websocket)]
+            if self.conn_count(path) == 0:
+                conn.text = ""
 
 
 app = FastAPI()
