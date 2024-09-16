@@ -22,11 +22,13 @@ class WebSocketBroadcaster:
     def conn_count(self, path: str):
         return len(self.connections[path].websockets)
 
-    async def broadcast(self, path: str, message: str):
+    async def broadcast(self, path: str, sender_id: int, message: str):
         with self.lock:
             conn = self.connections[path]
             conn.text = message if message else ""
             for id_ in conn.websockets:
+                if id_ == sender_id:
+                    continue
                 websocket = conn.websockets[id_]
                 if websocket.client_state == WebSocketState.CONNECTED:
                     await websocket.send_text(conn.text)
@@ -78,7 +80,7 @@ async def ws_message(websocket: WebSocket, path: str):
     try:
         while True:
             text = await websocket.receive_text()
-            await ws_broadcaster.broadcast(path, text)
+            await ws_broadcaster.broadcast(path, id(websocket), text)
     except WebSocketDisconnect:
         await ws_broadcaster.unregister(path, websocket)
         return
