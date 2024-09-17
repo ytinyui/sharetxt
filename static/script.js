@@ -1,22 +1,11 @@
+import { wc } from "./utils.js";
+
 const input = document.getElementById("input");
 const status_msg = document.getElementById("status");
 status_msg.textContent = "Status: connecting";
 
 const ws_message = new WebSocket(ws_message_endpoint);
 const ws_heartbeat = new WebSocket(ws_heartbeat_endpoint);
-
-function wc(str) {
-  let words = str.replace("\n", " ").split(/\s+/);
-  let lines = str.split("\n");
-
-  word_count = words.map((word) => (word.length ? " " : "")).join("").length;
-
-  return {
-    lines: lines.length,
-    words: word_count,
-    chars: str.length,
-  };
-}
 
 function updateClientMessage(event) {
   count = parseInt(event.data);
