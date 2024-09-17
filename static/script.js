@@ -8,7 +8,7 @@ const ws_message = new WebSocket(ws_message_endpoint);
 const ws_heartbeat = new WebSocket(ws_heartbeat_endpoint);
 
 function updateClientMessage(event) {
-  count = parseInt(event.data);
+  const count = parseInt(event.data);
   let conn_count_text = count > 1 ? `${count} clients` : `${count} client`;
   let room = document.URL.split("/").pop();
   document.getElementById("client-count").textContent = conn_count_text;
