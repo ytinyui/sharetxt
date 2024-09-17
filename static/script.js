@@ -53,6 +53,7 @@ ws_heartbeat.onclose = () => {
 
 input.addEventListener("input", () => {
   ws_message.send(input.value);
+  updateWordCountMessage(input.value);
 });
 
 updateWordCountMessage(input.value);
