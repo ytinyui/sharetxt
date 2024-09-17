@@ -1,4 +1,4 @@
-import { wc } from "./utils.js";
+import { wc, newSelectionRange } from "./utils.js";
 
 const input = document.getElementById("input");
 const status_msg = document.getElementById("status");
@@ -25,7 +25,9 @@ function updateWordCountMessage() {
 }
 
 ws_message.onmessage = (event) => {
+  const range = newSelectionRange(event.data);
   input.value = event.data;
+  if (range) input.setSelectionRange(range.start, range.end);
   updateWordCountMessage(input.value);
 };
 
