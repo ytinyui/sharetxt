@@ -1,3 +1,4 @@
+import asyncio
 import threading
 from dataclasses import dataclass
 
@@ -26,12 +27,15 @@ class WebSocketBroadcaster:
         with self.lock:
             conn = self.connections[path]
             conn.text = message if message else ""
-            for id_ in conn.websockets:
+
+            async def send_text(id_: int):
                 if id_ == sender_id:
-                    continue
+                    return
                 websocket = conn.websockets[id_]
                 if websocket.client_state == WebSocketState.CONNECTED:
                     await websocket.send_text(conn.text)
+
+            asyncio.gather(*map(send_text, conn.websockets))
 
     async def register(self, path: str, websocket: WebSocket):
         with self.lock:
